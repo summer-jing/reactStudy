@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 生产环境中不建议使用 -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script type="text/babel">
+        class Demo extends React.Component{
+            constructor(props){
+                super(props)
+                this.compare();
+                this.mapFun();
+            }
+            state = {
+                arr1:[{name:'se',age: 16},{name:'kk',age:32},{name:'cc',age:28}]
+            }
+            arrFun(param){
+                return function testFun(a,b){
+                   return a[param] - b[param]
+                }
+
+            }
+            mapFun(){
+                const arr = [1,5,6,9,10];
+                let tmp = arr.map(x => x*2);
+                console.log(tmp)
+                const arr1 = [1, 2, 3, 4, 5];
+                const tmp1 = arr1.map((item) => {
+                    return item * item
+                })
+                console.log(tmp1)
+
+                const array1 = ['周一','周二','周三','周四','周五','周六','周日'];
+                const array2 = ['1','2','3','4','5','6','7'];
+                const newArr = array1.map((item,index) => {
+                    return {
+                        name: item,
+                        id: array2[index]
+                    }
+                })
+                console.log(newArr)
+                const users = [
+                    {firstName : "White", lastName: "Green"},
+                    {firstName : "Red", lastName: "Pink"},
+                    {firstName : "Yellow", lastName: "Black"}
+                ];
+                const userFullnames = users.map((element) => {
+                    return `${element.firstName} ${element.lastName}`
+                })
+                console.log(userFullnames)
+            }
+            compare(){
+                this.state.arr1.sort(this.arrFun("age"));
+                console.log(this.state.arr1.sort(this.arrFun("age")))
+            }
+            
+            sortNum(a,b){ 
+                // return a-b; // 从小到大
+                return b-a; // 从大到小
+            }
+            render(){
+                const arr = [36,24,12,35,78,15];
+                
+                return (
+                    <div>
+                        <p>{arr.sort(this.sortNum).join()}</p>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Demo/>,root)
+    </script>
+</body>
+</html>
